@@ -1,0 +1,25 @@
+{
+	"biome.enabled": false,
+	"[typescript]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
+	"[html]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
+	"[svelte]": {
+		"editor.defaultFormatter": "svelte.svelte-vscode"
+	},
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": true,
+	"eslint.validate": ["svelte", "javascript", "typescript", "html"],
+	"svelte.enable-ts-plugin": true
+}
