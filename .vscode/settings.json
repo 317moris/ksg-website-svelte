@@ -16,6 +16,9 @@
 	"[javascript]": {
 		"editor.defaultFormatter": "prettier.prettier-vscode"
 	},
+	"[css]": {
+		"editor.defaultFormatter": "prettier.prettier-vscode"
+	},
 	"eslint.validate": ["svelte", "javascript", "typescript"],
 	"svelte.enable-ts-plugin": true
 }
