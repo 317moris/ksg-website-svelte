@@ -46,7 +46,7 @@ export async function getPosts() {
 			publishedAt: new TZDate(
 				`${publishedAt.split('/').length === 2 ? `${new TZDate(new Date(), 'Asia/Tokyo').getFullYear()}/` : ''}${publishedAt}`,
 				'Asia/Tokyo'
-			).toISOString(),
+			).getTime(),
 			content
 		});
 	}
