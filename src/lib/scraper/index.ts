@@ -43,9 +43,11 @@ export async function getPosts() {
 			title,
 			link,
 			author,
-			publishedAt: new TZDate(
-				`${publishedAt.split('/').length === 2 ? `${new TZDate(new Date(), '+09:00').getFullYear()}/` : ''}${publishedAt}`,
-				'+09:00'
+			publishedAt: new Date(
+				`${publishedAt.split('/').length === 2 ? `${new TZDate(new Date(), 'Asia/Tokyo').getFullYear()}/` : ''}${publishedAt}`.replaceAll(
+					'/',
+					'-'
+				) + 'T00:00:00.000+09:00'
 			).getTime(),
 			content
 		});
