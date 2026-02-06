@@ -1,9 +1,11 @@
+<!-- eslint-disable svelte/no-navigation-without-resolve -->
+
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { css, cx } from 'styled-system/css';
 	import { button, container, link } from 'styled-system/recipes';
 	import koshoSVG from '$lib/assets/kosho.svg';
-	import { LucideSunMoon } from '@lucide/svelte';
+	import LucideSunMoon from '@lucide/svelte/icons/sun-moon';
 	import { hstack } from 'styled-system/patterns';
 	import { useTheme } from 'svelte-themes';
 	import { Pages } from './pages';
@@ -40,6 +42,8 @@
 				埼玉県立越谷総合技術高等学校
 			</a>
 			{#each Pages as page (`page-${page.label}-${page.href}`)}
+				<!-- https://github.com/sveltejs/rfcs/pull/43 -->
+				<!-- https://github.com/sveltejs/svelte/pull/17188 -->
 				<a
 					href={page.href}
 					data-active={currentPage.url.pathname.startsWith(page.href) || undefined}
