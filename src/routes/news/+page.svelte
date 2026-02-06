@@ -1,14 +1,25 @@
 <script lang="ts">
-	import { cx } from 'styled-system/css';
+	import { css, cx } from 'styled-system/css';
 	import type { PageProps } from './$types';
-	import { container } from 'styled-system/recipes';
+	import { button, container, link } from 'styled-system/recipes';
+	import LucideExternalLink from '@lucide/svelte/icons/external-link';
 	import { resolve } from '$app/paths';
 
 	const { data }: PageProps = $props();
 </script>
 
-<main class={cx(container())}>
-	{#each data.contents as post (`post-${post.id}`)}
-		<a href={resolve('/news/[id]', { id: post.id })}>{post.title}</a>
+<main class={cx(container(), css({ maxW: 'prose', spaceY: '8' }))}>
+	<a href={resolve('/news/feed.xml')} target="_blank" class={button({ size: 'sm' })}
+		>RSS<LucideExternalLink aria-hidden /></a
+	>
+	{#each data.posts as post (`post-${post.link}`)}
+		<article class={css({ colorPalette: 'green', borderBottomWidth: '1px' })}>
+			<h1 class={link()}>
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+				<a href={post.link} target="_blank">{post.title}</a>
+			</h1>
+			<time datetime={post.publishedAt}>{post.publishedAt}</time>
+			<p>{post.author}</p>
+		</article>
 	{/each}
 </main>

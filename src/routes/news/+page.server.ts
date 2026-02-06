@@ -1,4 +1,4 @@
-import { getPosts } from '$lib/cms';
+import { getPosts } from '$lib/scraper';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => await getPosts();
+export const load: PageServerLoad = async () => ({ posts: await getPosts() });
