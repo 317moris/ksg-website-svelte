@@ -1,35 +1,29 @@
 import { TZDate } from '@date-fns/tz';
-import { HTMLAnchorElement, Window } from 'happy-dom';
+import { parse } from 'node-html-parser';
 
 const baseUrl = 'https://ksg-h.spec.ed.jp';
 
 export async function getPosts() {
-	const window = new Window();
-	const homePage = await fetch(baseUrl).then((res) => res.text());
-	window.document.body.innerHTML = homePage;
-
-	const postsA = window.document.querySelector(
+	const homePage = parse(await fetch(baseUrl).then((res) => res.text()));
+	const postsA = homePage.querySelector(
 		'span.btn-group:nth-child(2) > ul:nth-child(2) > li:nth-child(6) > a:nth-child(1)'
 	);
 	if (!postsA) throw new Error('not found "100件"');
-	if (!(postsA instanceof HTMLAnchorElement)) throw new Error('not anchor');
+	const postsLocation = postsA.getAttribute('href');
+	if (!postsLocation) throw new Error('not anchor');
 
-	const postsPage = await fetch(`${baseUrl}${postsA.href}`).then((res) => res.text());
-	window.document.body.innerHTML = postsPage;
-
-	const articles = window.document.querySelector(
-		'article.blogEntries div.nc-content-list'
-	)?.children;
+	const postsPage = parse(await fetch(`${baseUrl}${postsLocation}`).then((res) => res.text()));
+	const articles = postsPage.querySelector('article.blogEntries div.nc-content-list')?.children;
 	if (!articles) throw new Error('not found articles');
-
 	const data = [];
 	for (const article of articles) {
 		if (article.tagName !== 'ARTICLE') continue;
 		const titleA = article.querySelector('h2.blogs_entry_title a');
 		if (!titleA) throw new Error('not found title');
-		if (!(titleA instanceof HTMLAnchorElement)) throw new Error('not anchor');
+		const postLink = titleA.getAttribute('href');
+		if (!postLink) throw new Error('not anchor');
 		const title = titleA.textContent;
-		const link = `${baseUrl}${titleA.href}`;
+		const link = `${baseUrl}${postLink}`;
 		const meta = article.querySelector('div.blogs_entry_meta div');
 		if (!meta) throw new Error('not found meta');
 		const author = meta.querySelector('a')?.textContent.trim();
