@@ -4,13 +4,7 @@
 // see the documentation: https://zed.dev/docs/configuring-zed#settings-files
 {
 	"format_on_save": "on",
-	"lsp": {
-		"biome": {
-			"settings": {
-				"require_config_file": true
-			}
-		}
-	},
+	"language_servers": ["!tailwindcss-language-server", "!biome", "..."],
 	"languages": {
 		"Svelte": {
 			"formatter": [
